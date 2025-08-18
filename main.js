@@ -11,6 +11,8 @@ function renderizarTabuleiro() {
         for (let j = 0; j < tabuleiro[i].length; j++) {
             const ePosicao = document.createElement("div");
             ePosicao.classList.add("posicao");
+            ePosicao.dataset.linha = i;
+            ePosicao.dataset.coluna = j;
             const valor = tabuleiro[i][j];
             if (valor === 0) {
                 ePosicao.classList.add("invalida");
@@ -26,4 +28,12 @@ function renderizarTabuleiro() {
     }
     container.appendChild(eTabuleiro);
 }
+function ClicarPosicao(evento) {
+    const linha = Number(evento.currentTarget.dataset.linha);
+    const coluna = Number(evento.currentTarget.dataset.coluna);
+        console.log(`Clicou em: linha ${linha}, coluna ${coluna}`);
+    selecionarPeca(linha, coluna);
+    renderizarTabuleiro();
+}
+
 renderizarTabuleiro();
