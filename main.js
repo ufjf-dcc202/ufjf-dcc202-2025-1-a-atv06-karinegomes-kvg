@@ -1,4 +1,4 @@
-import { getTabuleiro,getPecaSelecionada, selecionarPeca, moverPeca } from "./restaUm.js";
+import { getTabuleiro, getPecaSelecionada, selecionarPeca, moverPeca } from "./restaUm.js";
 const container = document.getElementById("tabuleiro-container");
 
 function renderizarTabuleiro() {
@@ -14,24 +14,33 @@ function renderizarTabuleiro() {
             ePosicao.classList.add("posicao");
             ePosicao.dataset.linha = i;
             ePosicao.dataset.coluna = j;
+            
             const valor = tabuleiro[i][j];
+
             if (valor === 0) {
                 ePosicao.classList.add("invalida");
-            } else if (valor === 1) {
-                const ePeca = document.createElement("div");
-                ePeca.classList.add("peca");
-                if (pecaSelecionada && pecaSelecionada.linha === i && pecaSelecionada.coluna === j) {
-                        ePeca.classList.add("selecionada");
+            } else {
+                // *** LINHA CORRIGIDA ADICIONADA AQUI ***
+                // Adiciona o "ouvinte" de clique em todas as posições jogáveis
+                ePosicao.addEventListener("click", ClicarPosicao);
+
+                if (valor === 1) {
+                    const ePeca = document.createElement("div");
+                    ePeca.classList.add("peca");
+                    if (pecaSelecionada && pecaSelecionada.linha === i && pecaSelecionada.coluna === j) {
+                            ePeca.classList.add("selecionada");
+                    }
+                    ePosicao.appendChild(ePeca);
+                } else { 
+                    ePosicao.classList.add("vazia");
                 }
-                ePosicao.appendChild(ePeca);
-            } else { 
-                ePosicao.classList.add("vazia");
             }
             eTabuleiro.appendChild(ePosicao);
         }
     }
     container.appendChild(eTabuleiro);
 }
+
 function ClicarPosicao(evento) {
     const linha = Number(evento.currentTarget.dataset.linha);
     const coluna = Number(evento.currentTarget.dataset.coluna);
@@ -45,4 +54,5 @@ function ClicarPosicao(evento) {
     }
     renderizarTabuleiro();
 }
+
 renderizarTabuleiro();
