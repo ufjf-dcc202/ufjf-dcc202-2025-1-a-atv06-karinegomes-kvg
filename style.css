@@ -1,0 +1,65 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    margin-top: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+.tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(7, 50px);
+    grid-template-rows: repeat(7, 50px);
+    gap: 3px; 
+    background-color: #e6e6e6; 
+    border: 5px solid #000000; 
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.posicao {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.peca {
+    width: 80%;
+    height: 80%;
+    background-color: #4b4a4a; 
+    border-radius: 50%; 
+    cursor: pointer;
+    transition: all 0.1s ease-in-out; 
+}
+
+.peca.selecionada {
+    border: 3px solid #ff4500; 
+    box-shadow: 0 0 10px #ff4500;
+    transform: scale(1.1);
+    box-sizing: border-box; 
+}
+
+.posicao.vazia {
+    background-color: #ffffff; 
+    cursor: pointer;
+    position: relative; 
+}
+
+.posicao.vazia::before {
+    content: '';
+    position: absolute;
+    width: 80%; 
+    height: 80%; 
+    background-color: transparent;
+    border: 2px dashed #aaaaaa; 
+    border-radius: 50%;
+    box-sizing: border-box; 
+}
