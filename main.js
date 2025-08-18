@@ -1,4 +1,4 @@
-import { getTabuleiro } from "./restaUm.js";
+import { getTabuleiro,getPecaSelecionada, selecionarPeca, moverPeca } from "./restaUm.js";
 const container = document.getElementById("tabuleiro-container");
 
 function renderizarTabuleiro() {
@@ -6,6 +6,7 @@ function renderizarTabuleiro() {
     const eTabuleiro = document.createElement("div");
     eTabuleiro.classList.add("tabuleiro");
     const tabuleiro = getTabuleiro();
+    const pecaSelecionada = getPecaSelecionada();
 
     for (let i = 0; i < tabuleiro.length; i++) {
         for (let j = 0; j < tabuleiro[i].length; j++) {
@@ -19,6 +20,9 @@ function renderizarTabuleiro() {
             } else if (valor === 1) {
                 const ePeca = document.createElement("div");
                 ePeca.classList.add("peca");
+                if (pecaSelecionada && pecaSelecionada.linha === i && pecaSelecionada.coluna === j) {
+                        ePeca.classList.add("selecionada");
+                }
                 ePosicao.appendChild(ePeca);
             } else { 
                 ePosicao.classList.add("vazia");
@@ -31,9 +35,14 @@ function renderizarTabuleiro() {
 function ClicarPosicao(evento) {
     const linha = Number(evento.currentTarget.dataset.linha);
     const coluna = Number(evento.currentTarget.dataset.coluna);
-        console.log(`Clicou em: linha ${linha}, coluna ${coluna}`);
-    selecionarPeca(linha, coluna);
+    const tabuleiro = getTabuleiro();
+    const pecaSelecionada = getPecaSelecionada();
+
+    if (tabuleiro[linha][coluna] === 1) { 
+        selecionarPeca(linha, coluna);
+    } else if (tabuleiro[linha][coluna] === 2 && pecaSelecionada) { 
+        moverPeca(linha, coluna);
+    }
     renderizarTabuleiro();
 }
-
 renderizarTabuleiro();
