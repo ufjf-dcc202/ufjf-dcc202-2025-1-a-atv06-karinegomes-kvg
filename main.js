@@ -16,3 +16,21 @@ let tabuleiro = JSON.parse(JSON.stringify(tabuleiroInicial));
 export function getTabuleiro() {
     return [...tabuleiro];
 }
+
+let pecaSelecionada = null;
+
+export function getPecaSelecionada() {
+    return pecaSelecionada;
+}
+
+export function selecionarPeca(linha, coluna) {
+    if (tabuleiro[linha][coluna] !== 1) {
+        return;
+    }
+
+    if (pecaSelecionada && pecaSelecionada.linha === linha && pecaSelecionada.coluna === coluna) {
+        pecaSelecionada = null;
+    } else {
+        pecaSelecionada = { linha, coluna };
+    }
+}
